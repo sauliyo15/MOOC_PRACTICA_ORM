@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <script src="https://unpkg.com/@popperjs/core@^2.0.0"></script>
+  <script src="/javascripts/jquery-3.2.1.min.js"></script>
+  <script src="/javascripts/bootstrap.js"></script>
+  <script src="/javascripts/bootstrap-datepicker.js"></script>
+  <link rel='stylesheet' href='/stylesheets/bootstrap-datepicker.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
+          <div id="brand" class="col-xl-2 col-lg-3 col-md-3">
+            <a class="navbar-brand" href="/home"><b>Bases de Datos</b></a>
+            <button style="float: right;" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div id="items" class="col-xl-10 col-lg-9 col-md-9">
+            <div class="navbar-collapse collapse" id="navbarColor01" style="">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/hospitals"><i style="margin-right: 15.5px; margin-left: 5px;" class="fas fa-hospital"></i> <b>Hospitales</b></a>
+                </li>
+              </ul>
+            </div>  
+          </div>        
+        </nav>
+    </div>
+
+    <div class="row content">
+      <div class="col-xl-2 col-lg-3 col-md-3 col-12 patient-filter">
+        
+      </div>
+
+      <div class="col-xl-9 col-lg-8 col-md-9 col-sm-12">
+        <div class="row content-info">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/home">Home</a></li>
+              <li class="breadcrumb-item"><a href="/hospitals"><b>Hospitales</b></a></li>
+              <li class="breadcrumb-item active"><a href="#"><b>Pacientes</b></a></li>
+            </ol>
+        </div>
+        <% if (patientDeleted) { %>
+          <div class="row content-info pacient-alert"> 
+              <div  class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Paciente borrado!</strong>
+              </div>
+          </div>
+        <% } %>
+
+        <div class="row content-info">
+          <div class="page-header">
+            <h1 id="tables">Pacientes</h1>
+            <a class="btn btn-primary register" href="/hospitals/<%= hospital %>/patients/new"><b>Registrar  </b><i class="fas fa-plus"></i></a>
+          </div>
+          <table class="table table-hover">
+            <thead class="bg-secondary">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col" class="d-none d-sm-table-cell">Dni</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% if (patients) { %>
+              <% for(var i=0; i<patients.length; i++) {%>
+                <tr class="click-row" href="/hospitals/<%= hospital %>/patients/<%= patients[i].id%>">
+                  <td><%= patients[i].id%></td>
+                  <td><%= patients[i].name %></td>
+                  <td><%= patients[i].surname  %></td>
+                  <td class="d-none d-sm-table-cell"><%= patients[i].dni %></td>
+                  <td>
+                    <form method="POST" action="/hospitals/<%= hospital %>/patients/<%= patients[i].id%>?_method=DELETE">
+                      <a class="btn btn-info" href="/hospitals/<%= hospital %>/patients/<%= patients[i].id%>/edit?name=<%= patients[i].name %>&surname=<%= patients[i].surname %>&dni=<%= patients[i].dni %>&city=<%= patients[i].city %>"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-warning" href="/hospitals/<%= hospital %>/patients/<%= patients[i].id%>/assign_doctor"><i class="fas fa-user-md"></i></a>
+                      <button type="submit" class="btn delete-patient btn-danger"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table> 
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("tbody").on('click', 'tr', function () {
+          window.location = $(this).attr('href');
+      });
+
+      $(".pacient-alert").fadeOut({duration: 3000});
+
+      $('div.input-daterange').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+  });
+</script>
+</html>

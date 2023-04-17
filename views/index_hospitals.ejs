@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <script src="https://unpkg.com/@popperjs/core@^2.0.0"></script>
+  <script src="/javascripts/jquery-3.2.1.min.js"></script>
+  <script src="/javascripts/bootstrap.js"></script>
+  <script src="/javascripts/bootstrap-datepicker.js"></script>
+  <link rel='stylesheet' href='/stylesheets/bootstrap-datepicker.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
+          <div id="brand" class="col-xl-2 col-lg-3 col-md-3">
+            <a class="navbar-brand" href="/home"><b>Bases de Datos</b></a>
+            <button style="float: right;" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div id="items" class="col-xl-10 col-lg-9 col-md-9">
+            <div class="navbar-collapse collapse" id="navbarColor01" style="">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/hospitals"><i style="margin-right: 15.5px; margin-left: 5px;" class="fas fa-hospital"></i> <b>Hospitales</b></a>
+                </li>
+              </ul>
+            </div>  
+          </div>        
+        </nav>
+    </div>
+
+    <div class="row content">
+      <div class="col-xl-2 col-lg-3 col-md-3 col-12 patient-filter">
+        <div>
+          <h2><b>Filtros</b></h2>
+          <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" id="filterByCity-tab" data-toggle="tab" href="#filterByCity" role="tab" aria-controls="filterByCity" aria-selected="true"><i style="margin-right: 11px;" class="fas fa-city"></i> <b>Ciudad</b></a>
+            </li>
+          </ul>
+        </div>
+        <hr>
+        <div class="tab-content" id="myTabContent">
+          
+          <div class="tab-pane fade" id="filterByCity" role="tabpanel" aria-labelledby="home-tab">
+            <form method="POST" action="/hospitals/filterByCity">
+              <fieldset>
+                <div class="form-group">
+                  <label>Ciudad</label>
+                  <select class="form-control" name="city">
+                    <option value='Madrid'>Madrid</option>
+                    <option value='Barcelona'>Barcelona</option>
+                    <option value='Segovia'>Segovia</option>
+                    <option value='Toledo'>Toledo</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary filter-button"><b>Filtrar</b></button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-9 col-lg-8 col-md-9 col-sm-12">
+        <div class="row content-info">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/home">Home</a></li>
+              <li class="breadcrumb-item active"><a href="/hospitals"><b>Hospitales</b></a></li>
+            </ol>
+        </div>
+        <div class="row content-info">
+          <div class="hospitals">
+            <% if (hospitals) { %>
+              <% for(var i=0; i<hospitals.length; i++) {%>
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"><b><%= hospitals[i].name %></b></h4>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= hospitals[i].city %></h6>
+                    <button class="btn btn-primary show-patients" onclick="location.href='/hospitals/<%= hospitals[i].id %>/patients'"><b>Ver pacientes</b></button>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("tbody").on('click', 'tr', function () {
+          window.location = $(this).attr('href');
+      });
+
+      $(".pacient-alert").fadeOut({duration: 3000});
+
+      $('div.input-daterange').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+  });
+</script>
+</html>

@@ -1,0 +1,41 @@
+{
+  "name": "MOOC_PRACTICA_ORM",
+  "author": "BBDD-ETSIT",
+  "license": "GNU",
+  "version": "0.0.0",
+  "disableHashCheck": true,
+  "info": {
+    "githubURL": "BBDD-ETSIT/MOOC_PRACTICA_ORM",
+    "serverUrl": "https://moocbot.dit.upm.es/",
+    "courseId": "1312",
+    "assignmentId": "812"
+  },
+  "scripts": {
+    "start": "node rest_server.js",
+    "create_db": "./node_modules/.bin/sequelize db:create",
+    "drop_db": "./node_modules/.bin/sequelize db:drop",
+    "migrate_db": "./node_modules/.bin/sequelize db:migrate",
+    "seed_db": "./node_modules/.bin/sequelize db:seed:all",
+    "create_test_db": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/sequelize db:create",
+    "drop_test_db": "node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/sequelize db:drop",
+    "migrate_test_db": "node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/sequelize db:migrate",
+    "seed_test_db": "node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/sequelize db:seed:all"
+  },
+  "dependencies": {
+    "autocorector": "^3.1.6",
+    "body-parser": "~1.12.4",
+    "cross-env": "^7.0.2",
+    "ejs": "^3.0.1",
+    "express": "~4.13.1",
+    "method-override": "^2.3.1",
+    "mocha": "^7.0.1",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.2",
+    "popper.js": "^1.16.1",
+    "sequelize": "^5.15.1",
+    "sequelize-cli": "^4.0.0"
+  },
+  "mdSeed": {
+    "seedersFolder": "./seeders"
+  }
+}
