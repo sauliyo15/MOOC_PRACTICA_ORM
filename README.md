@@ -66,13 +66,13 @@ Abra un terminal en su ordenador y siga los siguientes pasos.
 El proyecto debe clonarse en el ordenador desde el que se está trabajando con:
 
 ```
-$ git clone https://github.com/ging/bbdd-practica-orm
+$ git clone https://github.com/BBDD-ETSIT/MOOC_PRACTICA_ORM
 ```
 
 y entrar en el directorio de trabajo
 
 ```
-$ cd bbdd-practica-orm
+$ cd MOOC_PRACTICA_ORM
 ```
 
 Una vez dentro de la carpeta, se instalan las dependencias con:
