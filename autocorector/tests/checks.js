@@ -37,7 +37,7 @@ describe("P5_ORM_BBDD", function () {
             Hospital = models.Hospital;
             Patient = models.Patient;
             Doctor = models.Doctor;
-            Controller = require('../controllers/controller')(models);
+            Controller = require('../../controllers/controller')(models);
             console.log('Base de datos de testing creada satisfactoriamente.');
         } catch (error) {
             console.log(error)
