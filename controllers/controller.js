@@ -15,7 +15,8 @@ module.exports = function (models) {
 
     // Filtra los hospitales por ciudad
     module.filterHospitalsByCity = async function (city) {
-        // Rellena aqui ...
+        let hospitals = await Hospital.findAll({where: {city: city}});
+        return hospitals;
     }
 
     // Buscar pacientes de un hospital ordenadors por el nombre (de la A a la Z)
