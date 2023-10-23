@@ -21,7 +21,8 @@ module.exports = function (models) {
 
     // Buscar pacientes de un hospital ordenadors por el nombre (de la A a la Z)
     module.list_hospital_patients = async function(hospital_id) {
-        // Rellene aqui ...
+        let patients = await Patient.findAll({where: {hospital_id: hospital_id}, order: [['name', 'ASC']]},);
+        return patients;
     }
 
     // Muestra la informacion de un paciente
