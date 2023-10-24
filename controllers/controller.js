@@ -59,7 +59,10 @@ module.exports = function (models) {
 
     // Asigna un doctor y devuelve los datos del paciente
     module.assignDoctor = async function (patient_id, doctor_id) {
-        // Rellene aqui ...
+        let patient = await Patient.findByPk(patient_id);
+        let doctor = await Doctor.findByPk(doctor_id);
+        await patient.addDoctor(doctor);
+        return patient;
     }
 
     // Muestras los medicos de un paciente
