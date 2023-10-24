@@ -28,12 +28,25 @@ exports.configure_db = async function(db) {
 
 
   // Relationships
-  ///////
+  
+  // Relation 1-to-N between Hospital and Patient:
+  Hospital.hasMany(Patient, {as: 'patients', foreignKey: 'hospital_id'});
+  Patient.belongsTo(Hospital, {as: 'user', foreignKey: 'hospital_id'});
 
-  // Rellene aqui para realizar las asociaciones entre los modelos anteriores
+  // Relation N-to-N entre Patient y Doctor
+  Patient.belongsToMany(Doctor, {
+    as: 'doctors',
+    through: 'patient_doctor',
+    foreignKey: 'patient_id',
+    otherKey: 'doctor_id'
+    });
 
-  ///////
-
+  Doctor.belongsToMany(Patient, {
+    as: 'patients',
+    through: 'patient_doctor',
+    foreignKey: 'doctor_id',
+    otherKey: 'patient_id'
+  });
 
   return {
     Hospital:  Hospital,
