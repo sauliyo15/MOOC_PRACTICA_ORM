@@ -44,12 +44,17 @@ module.exports = function (models) {
 
     // Actualiza un paciente
     module.update= async function(patient_id, name, surname, dni) {
-        // Rellene aqui ...
+        let patient = await Patient.findByPk(patient_id);
+        patient.name = name;
+        patient.surname = surname;
+        patient.dni = dni;
+        return await patient.save();
     }
 
     // Borra un paciente
     module.delete = async function(patient_id) {
-        // Rellene aqui ...
+        let patient = await Patient.findByPk(patient_id);
+        return await patient.destroy();
     }
 
     // Asigna un doctor y devuelve los datos del paciente
