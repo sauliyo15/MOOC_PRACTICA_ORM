@@ -27,7 +27,8 @@ module.exports = function (models) {
 
     // Muestra la informacion de un paciente
     module.read = async function(patient_id) {
-        // Rellene aqui ...
+        let patient = await Patient.findByPk(patient_id)
+        return patient;
     }
 
     // Crea un paciente en un hospital
