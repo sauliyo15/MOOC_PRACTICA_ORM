@@ -33,7 +33,13 @@ module.exports = function (models) {
 
     // Crea un paciente en un hospital
     module.create = async function(hospital_id, name, surname, dni) {
-        // Rellene aqui ...
+        let new_patient = {
+            name: name,
+            surname: surname,
+            dni: dni,
+            hospital_id: hospital_id
+        }
+        return await Patient.create(new_patient);
     }
 
     // Actualiza un paciente
