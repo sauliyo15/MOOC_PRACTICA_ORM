@@ -67,7 +67,9 @@ module.exports = function (models) {
 
     // Muestras los medicos de un paciente
     module.showPatientDoctors = async function (patient_id) {
-        // Rellene aqui ...
+        let patient = await Patient.findByPk(patient_id);
+        doctors = await patient.getDoctors();
+        return doctors;
     }
 
 
